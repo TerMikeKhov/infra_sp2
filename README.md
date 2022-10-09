@@ -52,10 +52,98 @@ docker-compose exec web python manage.py collectstatic --no-input
 docker-compose down -v
 ```
 
+## Наполнение базы данных из файла с фикстурами
+
+Для наполнения базы данных из файла с фикстурами необходимо выполнить следующие шаги:
+
+1. До запуска проекта нужно скопировать файл с фикстурами fixtures.json в папку api_yamdb.
+
+2. После запуска проета  выполнить комманду:
+
+```
+docker-compose exec web python manage.py loaddata fixtures.json
+```
 
 ## Примеры
 
-Подробная документация API с примерами размещена по адресу:
+### Примеры запросов к API:
+
+### Регистрация нового пользователя
+
+POST запрос на адрес
+http:/localhost/api/v1/auth/signup/
+
+```
+{
+
+    "email": "string",
+    "username": "string"
+
+}
+```
+
+### Получение JWT-токена
+
+POST запрос на адрес
+http:/localhost/api/v1/auth/token/
+
+```
+{
+
+    "username": "string",
+    "confirmation_code": "string"
+
+}
+```
+
+
+### Получение списка всех произведений
+
+GET запрос на адрес
+http://localhost/api/v1/titles/
+
+
+Ответ API:
+
+```
+[
+
+{
+
+    "count": 0,
+    "next": "string",
+    "previous": "string",
+    "results":
+                        [
+                        ......
+                        ]
+    }
+
+]
+```
+
+### Добавление произведения
+
+POST запрос на адрес
+http://localhost/api/v1/titles/
+
+Текст запроса:
+
+```
+{
+  "name": "string",
+  "year": 0,
+  "description": "string",
+  "genre": [
+    "string"
+  ],
+  "category": "string"
+}
+```
+
+
+
+### Более подробная документация API с примерами размещена по адресу:
 http://localhost/redoc/
 
 ## Автор
